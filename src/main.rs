@@ -1,16 +1,20 @@
-fn canada_to_poland_hours(canada_hours: u8) -> u8 {
-    (canada_hours + 6) % 24
-}
+use colored::Colorize;
 
 fn main() {
-    println!("CANADA --- POLAND\n");
+    println!("CANADA ---- POLAND\n");
 
-    for hour in 0..24 {
-        let poland_hours = canada_to_poland_hours(hour);
+    for canada_time in 0..24 {
+        if canada_time >= 8 && canada_time <= 23 {
+            print!("{}", format!("{:0>2}:00 --", canada_time).green());
+        } else {
+            print!("{}", format!("{:0>2}:00 --", canada_time).red());
+        }
 
-        println!(
-            "{:0>2}:{:0>2} ----- {:0>2}:{:0>2}",
-            hour, 0, poland_hours, 0
-        );
+        let poland_time = (canada_time + 6) % 24;
+        if poland_time >= 8 && poland_time <= 23 {
+            println!("{}", format!("-- {:0>2}:00", poland_time).green());
+        } else {
+            println!("{}", format!("-- {:0>2}:00", poland_time).red());
+        }
     }
 }
